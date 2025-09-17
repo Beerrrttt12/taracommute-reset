@@ -1,0 +1,14 @@
+<!doctype html>
+<script>
+  // GitHub Pages will serve this for unknown paths (like /auth/v1/verify)
+  const url = new URL(location.href);
+  if (url.pathname.endsWith('/auth/v1/verify')) {
+    const token = url.searchParams.get('token') || '';
+    const type = url.searchParams.get('type') || 'recovery';
+    location.replace('/taracommute-reset/password-reset.html#type=' +
+      encodeURIComponent(type) + '&access_token=' + encodeURIComponent(token));
+  } else {
+    // Fallback: go to the reset page, preserving any hash
+    location.replace('/taracommute-reset/password-reset.html' + (location.hash || ''));
+  }
+</script>
