@@ -1,13 +1,11 @@
 <!doctype html>
 <script>
-  const url = new URL(location.href);
-  // Case 1: /auth/v1/verify?token=...&type=recovery → rewrite to hash form
-  if (url.pathname.endsWith('/auth/v1/verify')) {
-    const token = url.searchParams.get('token') || '';
-    const type = url.searchParams.get('type') || 'recovery';
-    location.replace('password-reset.html#type=' + encodeURIComponent(type) + '&access_token=' + encodeURIComponent(token));
+  const u = new URL(location.href);
+  if (u.pathname.endsWith('/auth/v1/verify')) {
+    const type = u.searchParams.get('type') || 'recovery';
+    const token = u.searchParams.get('token') || '';
+    location.replace('password-reset.html#type=' + encodeURIComponent(type) + '&token=' + encodeURIComponent(token));
   } else {
-    // Default: preserve hash if present
     location.replace('password-reset.html' + (location.hash || ''));
   }
 </script>
